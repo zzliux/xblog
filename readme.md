@@ -7,3 +7,10 @@
 
 ### 提示
 * 本博客运行在apache上,请自行打开rewrite模块,若使用其他服务器,/article路径请自行完成url重写
+
+### 感谢
+* 其中用到了以下开源项目并感谢其开发者们(排名不分先后)
+  * [Parsedown](https://github.com/erusev/parsedown)
+  * [highlightjs](https://highlightjs.org/)
+  * [Editor.md](https://github.com/pandao/editor.md)
+  * [Font-Awesome](https://github.com/FortAwesome/Font-Awesome)

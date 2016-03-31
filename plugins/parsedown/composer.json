@@ -1,0 +1,23 @@
+{
+    "name": "erusev/parsedown",
+    "description": "Parser for Markdown.",
+    "keywords": ["markdown", "parser"],
+    "homepage": "http://parsedown.org",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Emanuil Rusev",
+            "email": "hello@erusev.com",
+            "homepage": "http://erusev.com"
+        },
+        {
+            "name": "zzliux",
+            "email": "416918875@qq.com",
+            "homepage": "http://www.zzliux.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {"Parsedown": ""}
+    }
+}

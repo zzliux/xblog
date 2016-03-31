@@ -1,0 +1,20 @@
+<Limit GET HEAD POST>
+order allow,deny
+deny from 113.251.216.123
+deny from 222.223.175.142
+deny from 222.186.58.16
+deny from 119.98.141.96
+deny from 180.97.221.109
+deny from 101.227.251.119
+deny from 104.149.23.73
+deny from 103.236.220.66
+deny from 104.223.72.166
+deny from 40.78.19.158
+deny from 115.190.96.17
+deny from 61.143.38.165
+deny from 221.232.51.181
+deny from 124.248.240.61
+deny from 223.73.23.221
+deny from 119.98.136.206
+allow from all
+</Limit>

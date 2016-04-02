@@ -47,7 +47,7 @@ function blog_listArticles(){
 			$omittedContent = $v['content'];
 		}
 		$omittedContent = htmlentities($omittedContent);
-		$detail = '| Author:<a href="search/?author='.($db->getUser($v['uid'])).'">'.($db->getUser($v['uid'])).'</a> | '.'Date:'.date("Y-m-d",$v['date']).' |';
+		$detail = '| <i class="fa fa-user"></i> <a href="search/?author='.($db->getUser($v['uid'])).'">'.($db->getUser($v['uid'])).'</a> | <i class="fa fa-calendar"></i> '.date("Y-m-d",$v['date']).' | <i class="fa fa-comments-o"></i> '.$v['commentsCounts'].' |';
 		$out .= "
 			<div class=\"post\">
 				<div class=\"title\">
@@ -128,7 +128,7 @@ function blog_article($cid,$status = 1){
 	for($l=count($tem[1]),$i=1;$i<$l;$i++){
 		$outCategory = $outCategory .',<a href="'.$sl.'search/?category='.$tem[1][$i].'" target="_blank">'.$tem[1][$i].'</a>';
 	}
-	$res['footerDetails'] = '| Tags:'.$outTag.' | Categories:'.$outCategory.' | Author:<a href="../search/?author='.$db->getUser($res['uid']).'" target="_blank">'.$db->getUser($res['uid']).'</a> | Date:'.date('Y-m-d H:i:s',$res['date']);
+	$res['footerDetails'] = '| <i class="fa fa-tags"></i> '.$outTag.' | <i class="fa fa-tasks"></i> '.$outCategory.' | <i class="fa fa-user"></i> <a href="../search/?author='.$db->getUser($res['uid']).'" target="_blank">'.$db->getUser($res['uid']).'</a> | <i class="fa fa-calendar"></i> '.date('Y-m-d H:i:s',$res['date']);
 
 	$out = "<div class=\"post\">
 			<div class=\"title article\">

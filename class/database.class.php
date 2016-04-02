@@ -19,7 +19,9 @@ class database {
 		if(empty($key)) return FALSE;
 		$sql = "SELECT * FROM `{$this->tablePrefix}_articles` WHERE `uid` = (SELECT `uid` FROM `{$this->tablePrefix}_userinfo` WHERE `name` = '{$key}') AND `status` = 1 ORDER BY `cid` DESC";
 		$res = $this->ch->query($sql);
+		$commentsCounts = $this->getCommentsCounts();
 		while($row = $res->fetch_assoc()){
+			$row['commentsCounts'] = isset($commentsCounts[intval($row['cid'])]) ? $commentsCounts[intval($row['cid'])] : 0;
 			$row['author'] = $this->getUser($row['uid']);
 			$re[] = $row;
 		}
@@ -30,7 +32,9 @@ class database {
 		if(empty($key)) return FALSE;
 		$sql = "SELECT * FROM `{$this->tablePrefix}_articles` WHERE `tags` LIKE '%|{$key}|%' AND `status` = 1 ORDER BY `cid` DESC";
 		$res = $this->ch->query($sql);
+		$commentsCounts = $this->getCommentsCounts();
 		while($row = $res->fetch_assoc()){
+			$row['commentsCounts'] = isset($commentsCounts[intval($row['cid'])]) ? $commentsCounts[intval($row['cid'])] : 0;
 			$row['author'] = $this->getUser($row['uid']);
 			$re[] = $row;
 		}
@@ -41,7 +45,9 @@ class database {
 		if(empty($key)) return FALSE;
 		$sql = "SELECT * FROM `{$this->tablePrefix}_articles` WHERE `categories` LIKE '%|{$key}|%'  AND `status` = 1 ORDER BY `cid` DESC";
 		$res = $this->ch->query($sql);
+		$commentsCounts = $this->getCommentsCounts();
 		while($row = $res->fetch_assoc()){
+			$row['commentsCounts'] = isset($commentsCounts[intval($row['cid'])]) ? $commentsCounts[intval($row['cid'])] : 0;
 			$row['author'] = $this->getUser($row['uid']);
 			$re[] = $row;
 		}
@@ -230,8 +236,10 @@ class database {
 			$sql = "SELECT * FROM `{$this->tablePrefix}_articles` WHERE `status` = 1  ORDER BY `cid` DESC LIMIT {$start},{$length}";
 		}
 		$res = $this->ch->query($sql);
+		$commentsCounts = $this->getCommentsCounts();
 		while($row = $res->fetch_assoc()){
 			$row['author'] = $this->getUser($row['uid']);
+			$row['commentsCounts'] = isset($commentsCounts[intval($row['cid'])]) ? $commentsCounts[intval($row['cid'])] : 0;
 			$re[] = $row;
 		}
 		return $re;
@@ -246,6 +254,8 @@ class database {
 			$sql = "SELECT * FROM `{$this->tablePrefix}_articles` WHERE `cid` = '{$cid}'";
 		$res = $this->ch->query($sql);
 		$res = $res->fetch_assoc();
+		$commentsCounts = $this->getCommentsCounts();
+		$res['commentsCounts'] = isset($commentsCounts[intval($res['cid'])]) ? $commentsCounts[intval($res['cid'])] : 0;
 		if($res){
 			return $res;
 		}else{
@@ -275,6 +285,15 @@ class database {
 			return false;
 		}
 	}
+	function getCommentsCounts(){
+		$sql = 'SELECT `cid`,count(1) as `counts` FROM `xblog_comments` GROUP BY `cid`';
+		$res = $this->ch->query($sql);
+		$ret = array();
+		while ($row = $res->fetch_assoc()) {
+			$ret[intval($row['cid'])] = intval($row['counts']);
+		}
+		return $ret;
+	}
 
 	function isSetArticle($cid){
 		$cid = $this->ch->real_escape_string($cid);
@@ -294,7 +313,9 @@ class database {
 		else
 			$sql = "SELECT * FROM `{$this->tablePrefix}_articles` WHERE `uid` = '{$uid}'";
 		$res = $this->ch->query($sql);
+		$commentsCounts = $this->getCommentsCounts();
 		while($row = $res->fetch_assoc()){
+			$row['commentsCounts'] = isset($commentsCounts[intval($row['cid'])]) ? $commentsCounts[intval($row['cid'])] : 0;
 			$re[] = $row;
 		}
 		return $re;

@@ -91,7 +91,7 @@ function setMoreArticles(){
 			ao = eval('('+xhr.responseText+')');
 			var out='';
 			for(var i=0;i<ao.length;i++){
-				var details = '| Author:<a href="search/?author='+ao[i].author+'">'+ ao[i].author +'</a> | Date:'+ao[i].date+' |';
+				var details = '| <i class="fa fa-user"></i> <a href="search/?author='+ao[i].author+'">'+ ao[i].author +'</a> | <i class="fa fa-calendar"></i> '+ao[i].date+' | <i class="fa fa-comments-o"></i> '+ao[i].commentsCounts+' |';
 				var title = ao[i].title;
 				var content = ao[i].content;
 				var cid = ao[i].cid;
